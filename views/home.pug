@@ -1,0 +1,44 @@
+extends base          
+
+block content
+  main.main 
+    .backdrop
+    .main__search-container 
+      p.main__search-container-text Enter your postcode or town/city to find out your current weather. If available, hit the "Get Location" button to get your precise location, then click the search button.
+      form.main__search-container-form#search-form
+        label.main__search-container-label(for='searchQ') Search: 
+        input.main__search-container-input(type='text' id='searchQ' name='searchQ' placeholder='e.g. London')
+        button.main__search-container-btn(title='Search')   
+          i.fa-solid.fa-question
+        button.main__search-container-btn#location(title='Get Location' name='coords' ) 
+          i.fa-solid.fa-location-crosshairs
+    .main__results-container 
+      h4.main__results-container-title= `Location: ${data.location.name}`
+      h5.main__results-container-date= `${today}`
+      h5.main__results-container-temp Temp
+      p.main__results-container-tempC= data.current.temp_c
+        span.tempC &#8451;
+      p.main__results-container-tempF= data.current.temp_f 
+        span.tempF &#8457;
+      img(src=`${data.current.condition.icon}`, alt=`${data.current.condition.text}`).main__results-container-icon  
+      p.main__results-container-text= data.current.condition.text
+      h5.main__results-container-feel Feels Like
+      p.main__results-container-feelC= data.current.feelslike_c
+        span.tempC &#8451;
+      p.main__results-container-feelF= data.current.feelslike_f
+        span.tempF &#8457;
+      p.main__results-container-windS= `Wind: ${data.current.wind_mph} mph`
+      p.main__results-container-windD= data.current.wind_dir 
+        svg(width='50' height='50')
+          circle(cx='25' cy='25' r='20' stroke='#594302' stroke-width='1' fill='transparent')
+          line(x1='25' y1='25' x2='25' y2='0' stroke='#594302' stroke-width='3' id=`${data.current.wind_degree}`)
+      p.main__results-container-hum= `Humidity: ${data.current.humidity} %`
+      p.main__results-container-uv= `UV Index: ${data.current.uv}`
+    form.main__forecast-form(action='/forecast' method='Get')
+      label.main__forecast-form-label(for='forecast')= `Click the button below to get a 3 day forecast for ${data.location.name}.`
+      input(type='hidden', name='forecast' id='forecast' value=`${data.location.name}`)
+      button.main__button(title='Get Forecast' id=`${data.location.name}`) Get Forecast
+        i.fa-regular.fa-calendar-days
+      
+      
+

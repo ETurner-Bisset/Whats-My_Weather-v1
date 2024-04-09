@@ -1,0 +1,197 @@
+.main__title {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.main__forecast-container {
+  width: 100%;
+  height: 100%;
+  @media (min-width: 23.5rem) {
+    @supports (display: grid) {
+      display: grid;
+      justify-items: center;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(3, 1fr);
+    }
+  }
+  @media (min-width: 56rem) {
+    @supports (display: grid) {
+      display: grid;
+      justify-items: center;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      .container:nth-of-type(3) {
+        grid-column: span 2;
+      }
+    }
+  }
+  .container {
+    &:nth-of-type(3) {
+      margin-bottom: 1rem;
+    }
+    .main__forecast-card {
+      background-color: map-get($colors, background);
+      width: 100%;
+      max-width: 23rem;
+      @include borderSmScreen();
+      padding: 0.4rem;
+      margin-top: 1rem;
+      @media (min-width: 23.5rem) {
+        @include borderLgScreen();
+      }
+      @supports (display: grid) {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(10, 2.5rem);
+        grid-template-areas:
+          'date date date'
+          'text text text'
+          'list-min icon list-max'
+          'list-min icon list-max'
+          'list-min icon list-max'
+          'windS windS windS'
+          'rain rain rain'
+          'sunrise . sunset'
+          'moonrise . moonset'
+          'hours hours hours';
+      }
+      justify-items: center;
+      .main__forecast-card-title {
+        grid-area: date;
+        font-size: 1.4rem;
+      }
+      .main__forecast-card-text {
+        grid-area: text;
+      }
+      .main__forecast-card-img {
+        grid-area: icon;
+        align-self: center;
+        width: 80%;
+      }
+      .main__forecast-card-list-min {
+        grid-area: list-min;
+        @include itemPadding();
+        list-style: none;
+        justify-self: left;
+      }
+      .main__forecast-card-list-max {
+        grid-area: list-max;
+        @include itemPadding();
+        list-style: none;
+        justify-self: right;
+        text-align: right;
+      }
+      .main__forecast-card-textW {
+        grid-area: windS;
+      }
+      .main__forecast-card-textR {
+        grid-area: rain;
+      }
+      .main__forecast-card-textSr {
+        grid-area: sunrise;
+        text-align: center;
+      }
+      .main__forecast-card-textSs {
+        grid-area: sunset;
+        text-align: center;
+      }
+      .main__forecast-card-textMr {
+        grid-area: moonrise;
+        text-align: center;
+        margin-top: 0.4rem;
+      }
+      .main__forecast-card-textMs {
+        grid-area: moonset;
+        text-align: center;
+        margin-top: 0.4rem;
+      }
+      .main__button-container {
+        grid-area: hours;
+        align-self: center;
+        margin-top: 0.4rem;
+        .main__forecast-card-hours-btn {
+          margin-left: 0.3rem;
+          @include defaultBtn();
+          i {
+            font-size: $font-size;
+            color: map-get($colors, text);
+          }
+        }
+      }
+    }
+    .hours-container {
+      justify-self: center;
+      grid-column: span 3;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      visibility: hidden;
+      margin-bottom: 1rem;
+      opacity: 1;
+      transform: translateY(-100%);
+      transition: all 0.5s ease-in;
+      z-index: 500;
+      background-color: map-get($colors, background);
+      @media (min-width: 31rem) {
+        @include borderLgScreen();
+        width: 31rem;
+        left: 25%;
+        right: 25%;
+      }
+      @supports (display: grid) {
+        display: grid;
+        grid-template-rows: repeat(25, auto);
+        .hour__title {
+          text-align: center;
+          padding: 0.3rem;
+          width: 100%;
+          .hour__close {
+            float: right;
+            @include defaultBtn();
+            i {
+              font-size: $font-size;
+              color: map-get($colors, text);
+            }
+          }
+        }
+        .hour-container {
+          width: 100%;
+          border-top: 1px solid map-get($colors, text);
+          &:nth-of-type(24) {
+            border-bottom: 1px solid map-get($colors, text);
+          }
+          @supports (display: grid) {
+            height: 100%;
+            display: grid;
+            grid-template-columns: 35% 30% 35%;
+            grid-template-rows: repeat(2, 1fr);
+            grid-template-areas: 'text icon time' 'text icon temp';
+            align-items: center;
+            justify-items: center;
+            .hour-container__time {
+              grid-area: time;
+            }
+            .hour-container__img {
+              grid-area: icon;
+            }
+            p {
+              grid-area: text;
+              text-align: center;
+            }
+            .hour-container__temp {
+              grid-area: temp;
+            }
+          }
+        }
+      }
+    }
+    .show-hours {
+      transform: translateY(0);
+      visibility: visible;
+      overflow-y: scroll;
+      height: 100vh;
+    }
+  }
+}

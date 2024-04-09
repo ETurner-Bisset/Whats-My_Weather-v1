@@ -1,0 +1,61 @@
+extends base  
+
+mixin card (forecast)
+  - let input = new Date(forecast.date);
+  - let output = input.toLocaleDateString('en-GB', {weekday: 'long', day: 'numeric' , month: 'short'});
+  .container
+    .main__forecast-card
+      h5.main__forecast-card-title= output
+      p.main__forecast-card-text= forecast.day.condition.text 
+      img.main__forecast-card-img(src=`${forecast.day.condition.icon}`, alt=`${forecast.day.condition-text}`)
+      ul.main__forecast-card-list-min Min Temp: 
+        li.main__forecast-card-item= forecast.day.mintemp_c
+          span.tempC &#8451;
+        li.main__forecast-card-item= forecast.day.mintemp_f
+          span.tempF &#8457;
+      ul.main__forecast-card-list-max Max Temp: 
+        li.main__forecast-card-item= forecast.day.maxtemp_c
+          span.tempC &#8451;
+        li.main__forecast-card-item= forecast.day.maxtemp_f
+          span.tempF &#8457;
+      p.main__forecast-card-textW= `Max wind speed: ${forecast.day.maxwind_mph} mph`
+      p.main__forecast-card-textR= `Chance of rain: ${forecast.day.daily_chance_of_rain}%`
+      p.main__forecast-card-textSr= `Sunrise: ${forecast.astro.sunrise}`
+      p.main__forecast-card-textSs= `Sunset: ${forecast.astro.sunset}`
+      p.main__forecast-card-textMr= `Moonrise: ${forecast.astro.moonrise}`
+      p.main__forecast-card-textMs= `Moonset: ${forecast.astro.moonset}`
+      .main__button-container
+        p.main__forecast-card-hours Get 24 hours
+          button.main__forecast-card-hours-btn(title='Get 24 hours')
+            i.fa-solid.fa-angle-down
+    .hours-container
+      h3.hour__title= output 
+        button.hour__close(title='Close') 
+          i.fa-solid.fa-times 
+      each hour in forecast.hour
+        +hour(hour)
+    
+      
+
+mixin hour(hour)
+  .hour-container 
+    - const amPM = (string) => {
+    - return string >= 12 ? 'PM' : 'AM';
+    - };
+    - let input = new Date(hour.time);
+    - let output = input.toLocaleTimeString('en-GB', { hour: "2-digit", minute: "2-digit" }); 
+    - let time = amPM(output.split(':')[0]) 
+    p.hour-container__time= `${output} ${time}` 
+    img.hour-container__img(src=`${hour.condition.icon}`, alt=`${hour.condition.text}`)
+    p= hour.condition.text
+    p.hour-container__temp= hour.temp_c
+      span.tempC &#8451;
+
+
+block content 
+  main.main
+    .backdrop
+    h1.main__title= `3 Day Forecast For: ${data.location.name}.`
+    .main__forecast-container
+      each forecast in data.forecast.forecastday
+        +card(forecast)

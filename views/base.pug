@@ -1,0 +1,33 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title What's My Weather | | #{title}
+    script(src='https://kit.fontawesome.com/6e0d4f4b9c.js' crossorigin='anonymous')
+    script(src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js')
+    link(rel='shortcut icon', href='/img/favicon-32x32.png', type='image/png')
+    link(rel='stylesheet', href='/css/style.css')
+  body 
+    header.header
+      h1.header__title What's My Weather
+        a(href='/' title='Home') 
+          i.fa-solid.fa-umbrella 
+
+    block content 
+
+    .modal 
+        h3.modal__title About   
+          button.modal__close(title='Close')
+            i.fa-solid.fa-times
+        p.modal__text This is a demo website. Created to practice concepts like mobile-first, UI, UX and layout skils. I used SCSS, display grid/flex, pug and express. The data comes from 
+          a(href='https://www.weatherapi.com/' target='_blank') WeatherAPI. 
+        p.modal__text You can find the code for this site here: 
+        a.modal__link(href='#' target='_blank') GitHub Repo
+        p.modal__text For details on my other projects and more visit my site:
+        a.modal__link(href='https://eturner-bisset.github.io/My-Site-v2/index.html' target='_blank') Eleanor Turner-Bisset  
+    footer.footer
+      p.footer__text= `ETB Copyright ©️ ${date}`
+        button.footer__btn(title='About') 
+          i.fa-solid.fa-circle-info
+    script(type="module", src="/js/index.js") 

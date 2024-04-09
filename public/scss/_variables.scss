@@ -1,0 +1,59 @@
+$colors: (
+  main: #faf634,
+  text: #594302,
+  background: #ccb79c,
+);
+
+$font-size: 1.2rem;
+
+@mixin display-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin defaultLink {
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  color: map-get($colors, text);
+}
+
+@mixin hoverFunc($property, $color) {
+  &:hover,
+  &:active {
+    #{$property}: map-get($colors, $color);
+  }
+}
+
+@mixin hoverFunc2() {
+  &:hover,
+  &:active {
+    transform: scale(1.2);
+  }
+}
+
+@mixin borderSmScreen() {
+  border-bottom: 3px solid map-get($colors, text);
+  border-top: 3px solid map-get($colors, text);
+}
+
+@mixin borderLgScreen() {
+  border: 3px solid map-get($colors, text);
+  border-radius: 8px;
+}
+
+@mixin defaultBtn() {
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid map-get($colors, text);
+  border-radius: 2px;
+  padding: 0.2rem;
+  @include hoverFunc2();
+}
+
+@mixin itemPadding() {
+  li {
+    padding-top: 0.3rem;
+  }
+}

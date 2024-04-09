@@ -1,0 +1,20 @@
+.main__error {
+  height: 100%;
+  width: 100vw;
+  max-width: 31rem;
+  @include display-flex();
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  .main__error-btn {
+    text-decoration: none;
+    @include borderLgScreen();
+    background-color: map-get($colors, main);
+    color: map-get($colors, text);
+    font-size: $font-size;
+    padding: 0.2rem;
+    margin-top: 1rem;
+    @include hoverFunc2();
+  }
+}
