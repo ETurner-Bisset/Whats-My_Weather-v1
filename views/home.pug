@@ -34,7 +34,7 @@ block content
           line(x1='25' y1='25' x2='25' y2='0' stroke='#594302' stroke-width='3' id=`${data.current.wind_degree}`)
       p.main__results-container-hum= `Humidity: ${data.current.humidity} %`
       p.main__results-container-uv= `UV Index: ${data.current.uv}`
-    form.main__forecast-form(action='/forecast' method='Get')
+    form.main__forecast-form#forecast-form(action='/forecast' method='Get')
       label.main__forecast-form-label(for='forecast')= `Click the button below to get a 3 day forecast for ${data.location.name}.`
       input(type='hidden', name='forecast' id='forecast' value=`${data.location.name}`)
       button.main__button(title='Get Forecast' id=`${data.location.name}`) Get Forecast

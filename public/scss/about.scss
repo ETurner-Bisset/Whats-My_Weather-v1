@@ -1,0 +1,49 @@
+.modal {
+  position: fixed;
+  bottom: 0;
+  z-index: 400;
+  width: 100%;
+  height: 55%;
+  max-width: 30rem;
+  background-color: map-get($colors, background);
+  padding: 0.5rem;
+  border-top: 4px solid map-get($colors, text);
+  transform: translateY(100%);
+  transition: transform 0.5s ease-in;
+  @media (min-width: 30rem) {
+    border-left: 4px solid map-get($colors, text);
+    border-right: 4px solid map-get($colors, text);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  .modal__title {
+    width: 100%;
+    margin-bottom: 1rem;
+    text-align: center;
+    .modal__close {
+      float: right;
+      margin-right: 0.3rem;
+      @include defaultBtn();
+      i {
+        font-size: $font-size;
+        color: map-get($colors, text);
+      }
+    }
+  }
+  .modal__text:nth-of-type(1) {
+    padding-bottom: 0.4rem;
+  }
+  .modal__text:nth-of-type(3) {
+    padding-top: 0.4rem;
+  }
+  a {
+    -webkit-tap-highlight-color: transparent;
+    &:hover,
+    &:active {
+      color: blue;
+    }
+  }
+}
+.show-modal {
+  transform: translateY(0);
+}

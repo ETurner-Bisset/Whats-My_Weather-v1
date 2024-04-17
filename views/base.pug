@@ -6,7 +6,15 @@ html(lang='en')
     title What's My Weather | | #{title}
     script(src='https://kit.fontawesome.com/6e0d4f4b9c.js' crossorigin='anonymous')
     script(src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js')
-    link(rel='shortcut icon', href='/img/favicon-32x32.png', type='image/png')
+    link(rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png")
+    link(rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png")
+    link(rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png")
+    link(rel="manifest" href="/img/site.webmanifest")
+    link(rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5bbad5")
+    link(rel="shortcut icon" href="/img/favicon.ico")
+    meta(name="msapplication-TileColor" content="#da532c")
+    meta(name="msapplication-config" content="/img/browserconfig.xml")
+    meta(name="theme-color" content="#abc9f1")
     link(rel='stylesheet', href='/css/style.css')
   body 
     header.header
@@ -20,13 +28,14 @@ html(lang='en')
         h3.modal__title About   
           button.modal__close(title='Close')
             i.fa-solid.fa-times
-        p.modal__text This is a demo website. Created to practice concepts like mobile-first, UI, UX and layout skils. I used SCSS, display grid/flex, pug and express. The data comes from 
+        p.modal__text This is a demo website. Created to practice concepts like mobile-first, UI, UX and layout skils. I used SCSS, display grid/flex, pug and express. This has now been updated to allow for some Progressive Web App features including the ability to download as an app on your device. The data comes from 
           a(href='https://www.weatherapi.com/' target='_blank') WeatherAPI. 
         p.modal__text You can find the code for this site here: 
         a.modal__link(href='https://github.com/ETurner-Bisset/Whats-My_Weather-v1' target='_blank') GitHub Repo
         p.modal__text For details on my other projects and more visit my site:
         a.modal__link(href='https://eturner-bisset.github.io/My-Site-v2/index.html' target='_blank') Eleanor Turner-Bisset  
     footer.footer
+      button.install#install Get App
       p.footer__text= `ETB Copyright ©️ ${date}`
         button.footer__btn(title='About') 
           i.fa-solid.fa-circle-info

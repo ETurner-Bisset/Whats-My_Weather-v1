@@ -59,7 +59,7 @@ app.get('/', async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.redirect('/errorPage');
+    // res.redirect('/errorPage');
   }
 });
 
@@ -83,7 +83,7 @@ app.get('/forecast', async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.redirect('/errorPage');
+    // res.redirect('/errorPage');
   }
 });
 

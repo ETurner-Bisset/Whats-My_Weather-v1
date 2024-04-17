@@ -1,22 +1,68 @@
+// DOM Selectors
+const input = document.getElementById('searchQ');
+const line = document.querySelector('line');
+const locBtn = document.getElementById('location');
+const containers = document.querySelectorAll('.container');
+const backdrop = document.querySelector('.backdrop');
+const aboutBtn = document.querySelector('.footer__btn');
+const modal = document.querySelector('.modal');
+const closeModalBtn = document.querySelector('.modal__close');
+const installBtn = document.getElementById('install');
+
+let deferredPrompt;
+
 const date = new Date().getFullYear();
 
-// Dynamically show wind direction
+// PWA code
+// Service worker registration
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/serviceWorker.js')
+    .then(() => {
+      console.log('Service worker registered!');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
-const line = document.querySelector('line');
+// Install app on phone/device on input
+window.addEventListener('beforeinstallprompt', (event) => {
+  console.log('beforeinstallprompt fired');
+  installBtn.style.display = 'block';
+  event.preventDefault();
+  deferredPrompt = event;
+  return false;
+});
+
+if (installBtn) {
+  installBtn.addEventListener('click', () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        console.log(choiceResult.outcome);
+        if (choiceResult.outcome === 'dismissed') {
+          console.log('User cancelled installation');
+          installBtn.style.display = 'none';
+        } else {
+          console.log('User added to home screen');
+        }
+      });
+      deferredPrompt = null;
+    }
+  });
+}
+
+// Dynamically show wind direction
 if (line) {
   const degree = line.id;
-
   const rotateLine = (degree) => {
     line.style.transform = `rotateZ(${degree}deg)`;
   };
-
   rotateLine(degree);
 }
 
 // Get user location
-
-const input = document.getElementById('searchQ');
-
 const getLocation = () => {
   navigator.geolocation.getCurrentPosition((position) => {
     input.value = `${position.coords.latitude},${position.coords.longitude}`;
@@ -24,7 +70,6 @@ const getLocation = () => {
 };
 
 if (navigator.geolocation) {
-  const locBtn = document.getElementById('location');
   if (locBtn) {
     locBtn.style.display = 'block';
     locBtn.addEventListener('click', (e) => {
@@ -35,10 +80,6 @@ if (navigator.geolocation) {
 }
 
 // Show hours
-
-const containers = document.querySelectorAll('.container');
-const backdrop = document.querySelector('.backdrop');
-
 const openHours = (btn, container) => {
   btn.addEventListener('click', () => {
     window.scroll({
@@ -76,10 +117,6 @@ if (containers) {
 }
 
 // Open close about modal
-const aboutBtn = document.querySelector('.footer__btn');
-const modal = document.querySelector('.modal');
-const closeModalBtn = document.querySelector('.modal__close');
-
 const openModal = () => {
   modal.classList.add('show-modal');
   backdrop.classList.add('show-backdrop');
